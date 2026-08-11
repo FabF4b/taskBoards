@@ -24,10 +24,10 @@ export default function DeleteCheckDialog({ board }: DeleteCheckDialogProps) {
   const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
 
-  function handleDelete() {
+  async function handleDelete() {
     try {
-      deleteBoard(board.id);
-      dispatch({ type: ACTION.DELETEBOARD, payload: board.id });
+      const deleteBoardId = await deleteBoard(board.id);
+      dispatch({ type: ACTION.DELETEBOARD, payload: String(deleteBoardId) });
     } catch (error) {
       console.error("Fehler beim Laden!", error);
     } finally {
